@@ -1,8 +1,5 @@
 import org.hibernate.Session;
-import org.hibernate.boot.jaxb.SourceType;
 import org.hibernate.cfg.Configuration;
-
-import java.util.ArrayList;
 import java.util.List;
 
 public class HibernateLauncher {
@@ -13,32 +10,35 @@ public class HibernateLauncher {
         session.getSessionFactory().openSession();
 
         session.beginTransaction();
-        Person p = new Person("Mateusz", "Jurek");
-        session.save(p);
-        Apartment apartment = (new Apartment("Opoczno", "Inowłodzka","12"));
-        p.addApartment(apartment);
-        session.save(apartment);
+        Person p1 = new Person("Sergiusz", "Kreton");
+        session.save(p1);
+        Person p2 = new Person("Euzebio", "Drewno");
+        session.save(p2);
+        Apartment a = (new Apartment("Końskie", "Moscickiego","35"));
+       // Apartment a2 = (new Apartment("Wawa", "Radomska","98"));
+        //p1.addApartment(a);
+       // p1.addApartment(a2);
+        a.addOwners(p1);
+        a.addOwners(p2);
+        session.save(a);
+       // session.save(p1);
         session.getTransaction().commit();
 
 
         List<Person> result = session.createQuery("select p from Person p", Person.class).getResultList();
         System.out.println(result);
-        for (Person p1 : result){
-            System.out.print(p1.getImie() + ", ");
-            System.out.print(p1.getNazwisko() + ", ");
-            System.out.print(p1.getId() + " \n");
+        for (Person pe1 : result){
+            System.out.print(pe1.getImie() + ", ");
+            System.out.print(pe1.getNazwisko() + ", ");
+            System.out.print(pe1.getId() + " \n");
 
-            List<Apartment> Aresults = p1.getApartments();
-            for (Apartment a1 : Aresults){
-                System.out.print(a1.getMiasto() + ", ");
-                System.out.print(a1.getUlica() + ", ");
-                System.out.print(a1.getNr() + " \n");
+            List<Apartment> Aresults = pe1.getApartments();
+            for (Apartment ap1 : Aresults){
+                System.out.print(ap1.getMiasto() + ", ");
+                System.out.print(ap1.getUlica() + ", ");
+                System.out.print(ap1.getNr() + " \n");
             }
         }
-
-
-
-        //List<> peopleapartm = session.createQuery("select p,a from Person p join person_apartment pa on p.Id = pa.Person_Id join Apartment a on pa.apartments_Id = a.Id");
         session.close();
         session.getSessionFactory().close();
 

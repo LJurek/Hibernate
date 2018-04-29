@@ -20,15 +20,11 @@ public class Person {
 
     String nazwisko;
 
-    @OneToMany
+    @ManyToMany
     private List<Apartment> apartments = new ArrayList<>();
 
     public List<Apartment> getApartments() {
         return apartments;
-    }
-
-    public void setApartments(List<Apartment> apartments) {
-        this.apartments = apartments;
     }
 
     public int getId() {

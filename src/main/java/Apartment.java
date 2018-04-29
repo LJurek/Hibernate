@@ -1,6 +1,6 @@
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 public class Apartment {
@@ -14,6 +14,13 @@ public class Apartment {
     public int getId() {
         return Id;
     }
+    @ManyToMany
+    private List<Person> owners = new ArrayList<>();
+
+    public List<Person> getOwners() {
+        return owners;
+    }
+
 
     public String getMiasto() {
         return miasto;
@@ -35,4 +42,8 @@ public class Apartment {
 
     public Apartment() {
     }
+    public void addOwners(Person person) {
+        owners.add(person);
+    }
+
 }

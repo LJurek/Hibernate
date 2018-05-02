@@ -1,10 +1,14 @@
-import javax.persistence.*;
+package pl.jpa;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.ManyToMany;
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
 public class Apartment {
-    @Id
+    @javax.persistence.Id
     @GeneratedValue
     int Id;
     String miasto;

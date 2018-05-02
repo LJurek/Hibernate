@@ -1,26 +1,32 @@
 import org.hibernate.Session;
 import org.hibernate.cfg.Configuration;
+import pl.jpa.Apartment;
+import pl.jpa.Person;
+
 import java.util.List;
 
 public class HibernateLauncher {
     public static void main(String[] args) {
         org.hibernate.cfg.Configuration c = new Configuration()
                 .configure("./hibernate.cfg.xml");
+        org.sqlite.JDBC c4;
+        org.hibernate.dialect.SQLiteDialect jjj;
         Session session = c.buildSessionFactory().openSession();
-        session.getSessionFactory().openSession();
+        //session.getSessionFactory().openSession();p
+        session.getTransaction().begin();
 
-        session.beginTransaction();
-        Person p1 = new Person("Sergiusz", "Kreton");
-        session.save(p1);
-        Person p2 = new Person("Euzebio", "Drewno");
-        session.save(p2);
-        Apartment a = (new Apartment("Końskie", "Moscickiego","35"));
+       // session.beginTransaction();
+        Person p1 = new Person("Ilion", "Mask");
+        //session.save(p1);
+       // Person p2 = new Person("Euzebio", "Drewno");
+       // session.save(p2);
+        Apartment a = new Apartment("Toruń", "Zlota","105");
        // Apartment a2 = (new Apartment("Wawa", "Radomska","98"));
-        //p1.addApartment(a);
-       // p1.addApartment(a2);
-        a.addOwners(p1);
-        a.addOwners(p2);
         session.save(a);
+        p1.addApartment(a);
+       // p1.addApartment(a2);
+        //a.addOwners(p1);
+        //a.addOwners(p2);
        // session.save(p1);
         session.getTransaction().commit();
 
